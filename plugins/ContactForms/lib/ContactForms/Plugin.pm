@@ -250,9 +250,8 @@ sub save_form {
     my $fields = JSON::from_json( $json );
 
     foreach my $f (@$fields) {
-        use Data::Dumper;
-        MT->log("Received field: " . Dumper($f) );
         my $field;
+        $f->{'options'} ||= {};
         if ( $f->{removed} ) {
             $field =
               MT->model('contact_form_field')
@@ -282,9 +281,8 @@ sub save_form {
         $field->order( $f->{order} );
         $field->removable( $f->{removable} );
         $field->options( JSON::to_json( $f->{options} ) );
-        MT->log("Saving field: " . $field->label . " ($basename), type: " . $f->{type} );
         $field->save
-          or return _send_json_response( $app, { error => $form->errstr } );
+          or return _send_json_response( $app, { error => $field->errstr } );
     }
     return $new
       ? _send_json_response( $app, { status => 1, form_id => $form->id } )

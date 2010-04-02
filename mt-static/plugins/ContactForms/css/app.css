@@ -1,14 +1,6 @@
 input.error { border: 2px solid red; }
 label.error { display: none !important; }
 
-/*
-.field-content textarea { width: 450px; }
-.dialog #subscribers-field .textarea-wrapper,
-.dialog #confirmation_text-field .textarea-wrapper,
-*/
-
-.dialog #field-list-container { height: 250px; overflow-y: scroll; }
-
 #add-field-form .field-header { margin-top: 4px; }
 #add-field-link { margin-top: 5px; }
 #add-field-link a { 
@@ -22,8 +14,13 @@ label.error { display: none !important; }
 
 #field-list ol { padding: 5px; margin: 0; }
 #field-list li { padding: 5px; border: 1px solid #CCC; margin: 0 0 3px 0; }
-#field-list-container { height: 180px; overflow: auto; border: 1px solid #999; padding: 5px; }
-.dialog #field-list-container { height: 180px; }
+#field-list-container { 
+  overflow: auto; 
+  border: 1px solid #999; 
+  padding: 5px; 
+  height: 290px; 
+  overflow-y: scroll; 
+}
 
 #form_title-field.field,
 #form_from-field.field { margin: 0 0 10px 0 !important; }
@@ -274,6 +271,12 @@ li span.type { float: left; display: none; }
   display: block;
 }
 
+#working { display: none; }
+#working img {
+  position: absolute;
+  top: 200px; left: 50%;
+}
+
 /* INQUIRY LISTING */
 
 .actions-bar {
@@ -321,7 +324,7 @@ td.from {
   overflow: hidden;
   position: relative;
 }
-.inq-body {
+#contact_form_inquiry-listing-table .inq-body {
   max-height: 92px;
 }
 .inquiry .inq-more {

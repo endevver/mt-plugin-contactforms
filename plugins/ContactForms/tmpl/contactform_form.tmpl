@@ -53,10 +53,18 @@
         setPage( parseInt(page) + 1 );
       } else {
         $('#contactform input[name="fields"]').val( $.toJSON(_fields) );
+        $('#contactform').hide();
+        $('#working').show();
         $('#contactform').ajaxSubmit({
           type: 'post',
-          success: function() {
-            alert("Success!");
+          success: function(data) {
+            if (data.error) {
+              alert("The was an error processing your request: " + data.error);
+            } else {
+              alert("Success!");
+              $('#working').hide();
+              $('#contactform').show();
+            }
             closeDialog();          
           }
         });
@@ -261,3 +269,4 @@
     </div>
   </div>
 </form>
+<div id="working"><img src="<$mt:StaticWebPath$>images/indicator.gif" width="66" height="66" /></div>
