@@ -1,34 +1,4 @@
-# Download
-
-* [Download Contact Forms Beta](INSERT DOWNLOAD URL HERE)
-
-# Plugin Status
-
-*This plugin is currently in BETA. It should not be used in production. Please report bugs here:*
-
-* [http://icanhaz.com/contactforms-support](http://icanhaz.com/contactforms-support)
-
-## Bugs and Known Issues
-
-* Manage Inquiries
-  * Display Options: changing date format not supported yet
-
-* Submissions
-  * Enforce authentication requirements - not implemented yet
-
-* Features
-  * Userpics for replies - considering implementing pending designer
-  * Export replies via CSV - not implemented yet
-
-## Postponed Features
-
-* Track the reply to inquiries as well - will not implement in v1.0
-* Make it easier to select subscribers to contact forms - will not implement in 1.0
-* Replies Feed
-
-# Documentation
-
-## Overview
+# Overview
 
 Contact forms are one of the most common and oldests ways in which
 sites have provided their visitors with a way to contact them. They
@@ -49,22 +19,28 @@ Finally, site administrators are given a simple screen on which
 they can monitor incoming inquiries and respond to them in kind via 
 email. 
 
-### Features
+## Features
 
 * Manage multiple contact forms and design the form elements you
   would like to appear in each.
+
 * Drag-and-drop interface for managing the order of contact form
   field elements.
+
 * Simple interface for managing, monitoring and replying to 
   incoming inquiries.
+
 * Ability to flag inquiries to receive special attention by 
   others, or for later review.
+
 * Quickly view the status of each inquiry through simple icons:
   unread, read and replied to.
+
 * Embed contact forms in a template via a simple template tag, 
   or retrieve from the plugin of the HTML yourself so that you
   drop it into a page, a post, or edit manually. Which ever is
   easier.
+
 * View incoming inquiries and view a specific inquiry using a
   split pane view common to most email applications.
 
@@ -73,14 +49,14 @@ extensive use of javascript and AJAX. That means you can be more
 productive because you will spend more time talking to your visitors
 and less time waiting for the application to load.
 
-### Pro Features
+## Pro Features
 
 Users of Movable Type Pro will also have access to the following
 features:
 
 * Assign a "Contact Form" custom field to pages and entries.
 
-### Designer Features
+## Designer Features
 
 Designers can also make special use of this plugin by specifying
 in their themes the hooks and information necessary to render 
@@ -88,18 +64,20 @@ forms according their unique style and structure. This allows for
 theme developers to leverage this plugin to provide a seamless 
 experience for their customers as well.
 
-### Developer Features
+## Developer Features
 
 The Contact Form plugin comes with a standard set of form fields
 for rendering and displaying on the published blog for visitors
 to fill out. If developers would like to extend the types of form
 elements available, they can do so using a simple YAML based API.
 
-## Installation
+# Installation
 
 To install this plugin follow the instructions found here:
 
     http://tinyurl.com/easy-plugin-install
+
+# Documentation
 
 ## Usage
 
@@ -430,4 +408,54 @@ Done.
     Out apologies, but this contact form is no longer active or available.
     </mt:IfContactFormOpen>
 
-## Developer Guide
+# Support
+
+
+
+# Bugs and Known Issues
+
+* Contact Forms
+  * drag and drop reordering broken
+
+* Manage Inquiries
+  * Display Options: changing date format not supported yet
+
+* Submissions
+  * Enforce authentication requirements - not implemented yet
+
+* Features
+  * Export replies via CSV - not implemented yet
+
+## Postponed Features
+
+* Track the reply to inquiries as well - will not implement in v1.0
+* Make it easier to select subscribers to contact forms - will not implement in 1.0
+* Replies Feed
+
+# Support
+
+Endevver does its best to support all of its open source software. For help
+please visit our dedicated support site:
+
+http://endevver.tenderapp.com/
+
+# About Endevver
+
+We design and develop web sites, products and services with a focus on 
+simplicity, sound design, ease of use and community. We specialize in 
+Movable Type and offer numerous services and packages to help customers 
+make the most of this powerful publishing platform.
+
+http://www.endevver.com/
+
+# Copyright
+
+This plugin was created from the kind support of 
+iThemes (http://www.ithemes.com/), who
+supports and appreciates open source. We <3 iThemes!
+
+Copyright 2010, Endevver, LLC. All rights reserved.
+
+# License
+
+This plugin is licensed under the GPL v2.

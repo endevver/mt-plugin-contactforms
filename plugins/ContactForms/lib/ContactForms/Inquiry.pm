@@ -120,7 +120,6 @@ sub load_meta_fields {
     while (my $field = $iter->()) {
         # install meta property
         my $types = MT->registry("contact_form_field_types");
-        MT->log("Installing \$meta{'formfield.".$field->basename."'} = ".$types->{ $field->type }->{'meta_type'});
         $meta{'formfield.'.$field->basename} = $types->{ $field->type }->{'meta_type'};
     }
     if (%meta) {

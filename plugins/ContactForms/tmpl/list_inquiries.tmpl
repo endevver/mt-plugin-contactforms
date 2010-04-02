@@ -21,6 +21,11 @@
   <script type="text/javascript" src="<mt:var name="PluginStatic">js/listing.js"></script>
 </mt:setvarblock>
 
+<mt:setvarblock name="html_body_footer" append="1">
+  <mt:include name="reply_dialog.tmpl" component="ContactForms">
+  <mt:include name="include/display_options.tmpl">
+</mt:setvarblock>
+
 <mt:setvarblock name="system_msg">
     <mt:if name="deleted">
         <mtapp:statusmsg id="reply_deleted" class="success">The inquiry was deleted.
@@ -82,10 +87,6 @@
             name="id-head" value="all" class="select" />
 </mt:setvarblock>
 
-<mt:setvarblock name="html_body_footer">
-   <mt:include name="include/display_options.tmpl">
-</mt:setvarblock>
-
 <mt:include name="include/header.tmpl">
 <div class="listing-filter">
   <div class="listing-filter-inner inner pkg">
@@ -137,7 +138,5 @@ more...</a></div>
       </td>
     </tr>
 </mtapp:listing>
-
-<mt:include name="reply_dialog.tmpl">
 
 <mt:include name="include/footer.tmpl">
