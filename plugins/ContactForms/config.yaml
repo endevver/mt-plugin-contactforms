@@ -1,0 +1,175 @@
+name: Contact Forms
+id: ContactForms
+author_link: http://www.ithemes.com/
+author_name: iThemes
+description: This plugin provides the ability to install and manage contact forms on a web site.
+version: 1.0 Beta 7
+plugin_link: http://www.majordojo.com/projects/
+schema_version: 9
+
+object_types:
+  contact_form: ContactForms::Form
+  contact_form_field: ContactForms::FormField
+  contact_form_inquiry: ContactForms::Inquiry
+
+config_types:
+  contact_form:
+    handler: $ContactForms::ContactForms::Plugin::type_forms
+
+blog_config_template: config.tmpl  
+
+default_templates:
+    base_path: templates/global
+    global:system:
+        contact_form:
+            label: Contact Form
+        inquiry_response:
+            label: Contact Form Response
+    global:email:
+        inquiry_confirm:
+            label: Contact Form Inquiry Confirmation
+        inquiry_notification:
+            label: Contact Form Inquiry Notification
+        reply:
+            label: Contact Form Inquiry Reply
+
+list_actions:
+  contact_form_inquiry:
+    read:
+      label: Mark as Read
+      code: $ContactForms::ContactForms::Plugin::itemset_mark_read
+      order: 100
+    unread:
+      label: Mark as Unread
+      code: $ContactForms::ContactForms::Plugin::itemset_mark_unread
+      order: 101
+    flag:
+      label: Flag
+      code: $ContactForms::ContactForms::Plugin::itemset_flag
+      order: 300
+    unflag:
+      label: Unflag
+      code: $ContactForms::ContactForms::Plugin::itemset_unflag
+      order: 301
+    junk:
+      label: Junk
+      code: $ContactForms::ContactForms::Plugin::itemset_junk
+      order: 302
+
+list_filters: $ContactForms::ContactForms::Plugin::init_filters
+
+applications:
+  inquiries:
+    handler: 'MT::App::Comments'
+  cms:
+    menus:
+      manage:contactforms:
+        label: Contact Forms
+        mode: cf.list_forms
+        order: 8001
+      manage:inquiries:
+        label: Inquiries
+        mode: cf.list_inquiries
+        order: 2002
+    methods:
+      cf.install_tmpl: $ContactForms::ContactForms::Plugin::install_tmpl
+      cf.submit_reply: 
+        code: $ContactForms::ContactForms::App::Inquiries::cf_post
+        requires_login: 0
+      cf.send_response: $ContactForms::ContactForms::Plugin::send_response
+      cf.get_inquiry: $ContactForms::ContactForms::Plugin::get_inquiry
+      cf.del_inquiry: $ContactForms::ContactForms::Plugin::delete_inquiry
+      cf.toggle_flag: $ContactForms::ContactForms::Plugin::toggle_flagged
+      cf.list_inquiries: $ContactForms::ContactForms::Plugin::list_inquiries
+      cf.list_forms: $ContactForms::ContactForms::Plugin::list_forms
+      cf.view_inquiry: $ContactForms::ContactForms::Plugin::show_inquiry
+      cf.show_form: $ContactForms::ContactForms::Plugin::show_form
+      cf.save_form: $ContactForms::ContactForms::Plugin::save_form
+      cf.edit_form: $ContactForms::ContactForms::Plugin::edit_form
+      cf.create_form: $ContactForms::ContactForms::Plugin::create_form
+      cf.del_form: $ContactForms::ContactForms::Plugin::del_form
+      cf.form_html: $ContactForms::ContactForms::Plugin::form_html
+
+tags:
+  modifier:
+    encode_md5: 
+      handler: $ContactForms::ContactForms::ContextHandlers::mod_md5
+  function:
+    ContactFormHTML: $ContactForms::ContactForms::ContextHandlers::tag_contact_form_html
+    ContactFormID: $ContactForms::ContactForms::ContextHandlers::tag_form_id
+    ContactFormName: $ContactForms::ContactForms::ContextHandlers::tag_form_name
+    ContactFormResponseText: $ContactForms::ContactForms::ContextHandlers::tag_responsetext
+    ContactFormAutoReplyText: $ContactForms::ContactForms::ContextHandlers::tag_autoreplytext
+    ContactFormFieldLabel: $ContactForms::ContactForms::ContextHandlers::tag_field_label
+    ContactFormFieldBasename: $ContactForms::ContactForms::ContextHandlers::tag_field_basename
+    ContactFormFieldHint: $ContactForms::ContactForms::ContextHandlers::tag_field_hint
+    ContactFormFieldType: $ContactForms::ContactForms::ContextHandlers::tag_field_type
+    ContactFormFieldOption: $ContactForms::ContactForms::ContextHandlers::tag_field_option
+    ContactFormFieldValue: $ContactForms::ContactForms::ContextHandlers::tag_field_value
+    BlogIDHack: $ContactForms::ContactForms::ContextHandlers::tag_blog_id_hack
+  block:
+    ContactForm: $ContactForms::ContactForms::ContextHandlers::tag_contact_form
+    ContactFormFields: $ContactForms::ContactForms::ContextHandlers::tag_form_fields
+    ContactFormFieldValueLoop: $ContactForms::ContactForms::ContextHandlers::tag_value_loop
+    IfTemplateExists?: $ContactForms::ContactForms::ContextHandlers::tag_template_exists
+    IfContactFormOpen?: $ContactForms::ContactForms::ContextHandlers::tag_is_open
+    ShowContactFormFieldLabel?: $ContactForms::ContactForms::ContextHandlers::tag_show_label
+    ShowContactFormFieldHint?: $ContactForms::ContactForms::ContextHandlers::tag_show_hint
+    IfContactFormFieldRequired?: $ContactForms::ContactForms::ContextHandlers::tag_is_required
+
+
+callbacks:
+  init_request: $ContactForms::ContactForms::Plugin::init_request
+  
+contact_form_field_types:
+  text:
+    label: "Simple Text Field"
+    handler: $ContactForms::ContactForms::FieldTypes::field_text
+    meta_type: 'string(255)'
+  yes_no:
+    label: "Yes/No Prompt"
+    handler: $ContactForms::ContactForms::FieldTypes::field_yes_no
+    meta_type: 'string(5)'
+  textarea: 
+    label: "Multi-line Text Field"
+    handler: $ContactForms::ContactForms::FieldTypes::field_textarea
+    meta_type: 'text'
+    options: 
+      rows: 
+        label: Rows
+        type: text
+        size: 5
+      cols: 
+        label: Columns
+        type: text
+        size: 5
+  select: 
+    label: "Pull-down Menu"
+    handler: $ContactForms::ContactForms::FieldTypes::field_select
+    meta_type: 'string(50)'
+    options: 
+      values: 
+        label: "Menu Items"
+        type: text
+        size: 35
+  checkbox: 
+    label: "Single Checkbox"
+    handler: $ContactForms::ContactForms::FieldTypes::field_checkbox
+    meta_type: 'string(50)'
+    options: 
+      value: 
+        label: "Checkbox Label"
+        type: text
+        size: 20
+  radio: 
+    label: "Radio Buttons"
+    handler: $ContactForms::ContactForms::FieldTypes::field_radio
+    meta_type: 'string(255)'
+    options: 
+      values: 
+        label: "Buttons"
+        type: text
+        size: 35
+
+customfield_types: $ContactForms::ContactForms::Plugin::load_custom_fields
+

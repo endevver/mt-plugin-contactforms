@@ -1,0 +1,42 @@
+<script type="text/javascript" src="<mt:StaticWebPath>plugins/ContactForms/js/jquery.js"></script>
+<script type="text/javascript">
+function installTemplate(blog_id,tmpl) {
+   $.post(ScriptURI, {
+     '__mode': 'cf.install_tmpl',
+     'template':tmpl,
+     'blog_id':blog_id,
+     'magic_token':'<mt:var name="magic_token">',
+    },
+    function(data){
+      if (data.error) {
+        alert("an error occurred: " + data.error);
+      } else if (data.success) {
+	alert("template installed.");
+	$('#'+tmpl+'_message').html('Your contact form template has been installed.');
+      } else {
+        alert("Could not install template.");
+      }
+    }, 
+    "json"
+  );
+  return false;
+}
+</script>
+<mtapp:setting
+  id="install_tmpl"
+  label="Install Template"
+  show_hint="0">
+
+<mt:IfTemplateExists id="contact_form" scope="blog">
+<p>Your contact form template has already been installed for this blog.</p>
+<mt:else>
+<p id="contact_form_message"><a href="#" onclick="return installTemplate(<mt:BlogIDHack>,'contact_form');">Install Contact Form Template</a></p>
+</mt:IfTemplateExists>
+
+<mt:IfTemplateExists id="inquiry_response" scope="blog">
+<p>Your contact form response template has already been installed for this blog.</p>
+<mt:else>
+<p id="inquiry_response_message"><a href="#" onclick="return installTemplate(<mt:BlogIDHack>,'inquiry_response');">Install Contact Form Response Template</a></p>
+</mt:IfTemplateExists>
+
+</mtapp:setting>

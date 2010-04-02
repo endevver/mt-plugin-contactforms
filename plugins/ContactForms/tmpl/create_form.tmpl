@@ -1,0 +1,30 @@
+<mt:setvar name="page_title" value="Create Contact Form">
+<mt:setvarblock name="screen_id">create</mt:setvarblock>
+<mt:setvarblock name="PluginStatic"><mt:StaticWebPath>plugins/ContactForms/</mt:setvarblock>
+<mt:setvarblock name="html_head" append="1">
+
+  <link rel="stylesheet" href="<$mt:var name="PluginStatic"$>css/app.css" type="text/css" />
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/jquery.js"></script>
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/jquery.validate.js"></script>
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/jquery.json.js"></script>
+  <script type="text/javascript" src="<$mt:StaticWebPath$>jquery/jquery.form.js"></script>
+
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/ui.core.js"></script>
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/ui.draggable.js"></script>
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/ui.sortable.js"></script>
+
+  <script type="text/javascript">
+  var list;
+  var options     = eval(<mt:var name="options_js">);
+  var blog_id     = <mt:var name="blog_id">;
+  var magic_token = '<mt:var name="magic_token">';
+  var _fields;
+  </script>
+  <script type="text/javascript" src="<$mt:var name="PluginStatic"$>js/contactform.js"></script>
+
+</mt:setvarblock>
+
+<mt:include name="dialog/header.tmpl">
+<mt:var name="mode" value="dialog">
+<mt:include name="contactform_form.tmpl">
+<mt:include name="dialog/footer.tmpl">

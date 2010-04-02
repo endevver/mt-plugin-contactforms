@@ -1,0 +1,421 @@
+input.error { border: 2px solid red; }
+label.error { display: none !important; }
+
+/*
+.field-content textarea { width: 450px; }
+.dialog #subscribers-field .textarea-wrapper,
+.dialog #confirmation_text-field .textarea-wrapper,
+*/
+
+.dialog #field-list-container { height: 250px; overflow-y: scroll; }
+
+#add-field-form .field-header { margin-top: 4px; }
+#add-field-link { margin-top: 5px; }
+#add-field-link a { 
+  background-image: url(../../../images/status_icons/create.gif);
+  background-repeat: no-repeat;
+  background-position: 0px 3px;
+  padding-left: 14px;
+}
+
+#field-list li.removed { display: none; }
+
+#field-list ol { padding: 5px; margin: 0; }
+#field-list li { padding: 5px; border: 1px solid #CCC; margin: 0 0 3px 0; }
+#field-list-container { height: 180px; overflow: auto; border: 1px solid #999; padding: 5px; }
+.dialog #field-list-container { height: 180px; }
+
+#form_title-field.field,
+#form_from-field.field { margin: 0 0 10px 0 !important; }
+#form_title-field.field .field-content-text,
+#form_from-field.field .field-content-text { font-size: 1.3em; }
+
+#add-field-form { padding: 10px 0 0 0; }
+#add-field-form input { width: auto; }
+#add-field-form .field-content { margin: 0; }
+#add-field-form .field { margin: 0 0 5px 0; }
+#add-field-form .primary-button { color: white; }
+#field-list li .edit { display: none; }
+
+#form_fields-field { position: relative; }
+#add-field-link { position: absolute; top: -3px; right: 0; }
+
+/*
+#add-field-form .primary-button { margin-left: 70px; }
+#add-field-form .field-header { width: 60px; }
+*/
+
+.field-options {
+  position: relative;
+  display: inline;
+  margin-right: 10px;
+}
+.field-options-form {
+  position: absolute;
+  top: 11px;
+  right: 0;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #AAA;
+  padding: 10px;
+}
+.edit .actions a.save-field {
+  display: inline-block;
+  bottom: 4px;
+  position: relative;
+}
+.edit input.edit-label { margin-right: 20px; }
+.edit .field-options-form { display: none; }
+
+#field_label-field { float: left; width: 240px; }
+#field_type-field { float: left; width: 220px; }
+#field_options-field { display: none; clear: both; margin-top: 0; }
+#field-field-props { margin-bottom: 0; }
+
+#field_type-field .field-content { vertical-align: bottom; }
+#field_type-field .field-content select { float: left; margin-right: 10px; }
+#add_field_options { float: left; }
+
+li span.label { float: left; font-size: 1.3em; width: auto; }
+li span.actions { float: right; width: auto; }
+li span.type { float: left; display: none; }
+.dragHandle {
+  display: block;
+  float: left;
+  width: 5px;
+  height: 16px;
+  border: 2px solid #bbb;
+  background:#ccc;
+  cursor: move;
+  margin-right: 5px;
+}
+
+#view_types { margin-bottom: 5px; }
+#form_html {
+  width: 585px;
+  height: 340px;
+  background: white;
+  white-space: pre;
+/*  padding: 5px 10px 5px 10px; */
+  border: 1px solid #CCC;
+/*  overflow: auto;*/
+}
+
+#form_html textarea {
+  padding: 5px 10px 5px 10px;
+  width: 585px;
+  height: 340px;
+  font-family: monospace;
+  border: 0;
+}
+
+#autoreply { display: none; }
+
+#contact_form_inquiry-listing td.flag,
+#contact_form_inquiry-listing th.flag,
+#contact_form_inquiry-listing td.from { }
+#contact_form_inquiry-listing tr { border-bottom: 1px solid #ccc; }
+#contact_form_inquiry-listing tr.unread { font-weight: bold; }
+#contact_form_inquiry-listing tr.deleted td { color: #ccc; }
+#contact_form_inquiry-listing td.status { width: 16px; background-repeat: no-repeat; background-position: center; }
+#contact_form_inquiry-listing tr.unread td.status { background-image: url(../images/email.png); } 
+#contact_form_inquiry-listing tr.junk td.status { background-image: url(../images/email_error.png); } 
+#contact_form_inquiry-listing tr.sending td.status { background-image: url(../../../images/indicator.white.gif) !important; } 
+#contact_form_inquiry-listing tr.read td.status { background-image: url(../images/email_open.png); } 
+#contact_form_inquiry-listing tr.replied td.status { background-image: url(../images/email_go.png); } 
+#contact_form_inquiry-listing th.flag,
+#contact_form_inquiry-listing tr.flagged td.flag { background-image: url(../images/star.png); } 
+
+#inquiry-header { 
+  background: #DDD; 
+  border-bottom: 1px solid #CCC;
+  padding: 3px 10px 3px 0;
+}
+#inquiry-header label { 
+  text-align: right; 
+  width: 150px; 
+  float: left; 
+  clear: left; 
+  font-weight: bold;
+  margin: 3px;
+  white-space: nowrap;
+}
+
+#inquiry-header div.prop { 
+  float: left; 
+  clear: right; 
+  margin: 3px;
+}
+#inquiry-header button {
+  float: right;
+}
+#inquiry-text {
+  padding: 10px;
+}
+#inquiry-text p.loading {
+  background-image: url(../../../images/indicator.white.gif); 
+  background-position: 0px 0;
+  background-repeat: no-repeat;
+  display:block;
+  margin: 20px auto 0 auto;
+  padding-left: 20px;
+  width: 40px;
+}
+
+.dialog #comment {
+    height: 120px;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 8px;
+}
+
+.dialog #comment .comment-meta {
+    color: #666;
+    margin-bottom: .5em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: .1em;
+}
+
+.dialog #comment .commenter-name,
+.dialog #comment .entry-title {
+    font-weight: bold;
+}
+.dialog #comment-reply {
+    background: #fff;
+}
+.dialog .comment-body { text-align: left; }
+.dialog #comment-reply #reply-body {
+    width: 600px;
+/*    width: 610px;*/ /* safari needs this... but how to pass to safari? */
+    height: 198px;
+    border: 1px solid #ccc;
+    padding: 0 0 0 8px;
+    margin: 0;
+}
+.dialog #comments-form.preview #comment-reply {
+    display: none;
+}
+
+.dialog #comment-preview {
+    display: none;
+}
+.dialog .preview #comment-preview {
+    display: block;
+}
+.dialog #comment-preview #reply-body {
+    height: 178px;
+    border: 1px solid #ccc;
+/*    padding: 8px;*/
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dialog .preview #preview-comment-action {
+    display: none;
+}
+
+.dialog #re-edit-comment-action {
+    display: none;
+}
+.dialog .preview #re-edit-comment-action {
+    display: inline;
+}
+
+.dialog .intro,
+.dialog p.comment-meta { text-align: left; }
+#comment-reply #reply-body { margin-left: -0px !important; width: 600px !important; }
+
+/* STEPS */
+
+#steps {
+  margin-bottom: 10px;
+}
+#steps li {
+  float: left;
+  background: none;
+  color: black;
+  margin-right: 20px;
+  padding: 5px 12px 5px 7px;
+}
+#steps li.active {
+  background-color: #336699;
+  color: white;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#steps li span {
+  color: white;
+  background-color: #336699;
+  padding: 1px 5px;
+  margin-right: 5px;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+#steps li.active span {
+  background-color: white;
+  color: #336699;
+  padding: 0px 4px;
+}
+#steps li,
+#steps li span,
+#steps li label { cursor: pointer; }
+
+.page {
+  display: none;
+}
+.page.first {
+  display: block;
+}
+
+/* INQUIRY LISTING */
+
+.actions-bar {
+  position: relative;
+}
+#close {
+  position: absolute;
+  left: 0; top: 0;
+}
+
+#contact_form_inquiry-listing-form .button-actions {
+  position: relative;
+  display: block;
+  padding-left: 20px;
+}
+#contact_form_inquiry-listing-form #select-all-checkbox {
+  position: absolute;
+  top: 5px; left: 0px;
+  border: 1px solid black !important;
+  padding: 10px;
+}
+
+.inquiry .inq-header {
+  margin-bottom: 3px;
+  color: #777;
+}
+tr.selected .inquiry .inq-header {
+  color: #CCC;
+}
+td.cb {
+  padding-top: 6px !important;
+}
+td.from {
+  padding-top: 5px;
+}
+.inquiry .inq-subject {
+  margin-bottom: 5px;
+}
+  .inquiry .inq-subject label {
+    font-weight: bold;
+  }
+.inquiry .inq-body {
+  margin-bottom: 5px;
+  font-weight: normal;
+  overflow: hidden;
+  position: relative;
+}
+.inq-body {
+  max-height: 92px;
+}
+.inquiry .inq-more {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 4px 0px 0px 8px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: rgb(255,255,255);
+  background-color: rgba(255,255,255,0.95);
+}
+.inquiry .inq-actions {
+  margin-bottom: 10px;
+  color: #777;
+}
+  tr.selected .inquiry .inq-actions {
+    color: #CCC;
+  }
+
+.inq-actions span.status { 
+  display: inline-block; 
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 16px; 
+  width: 16px; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+}
+.unread .inq-actions .status { top: 4px; background-image: url(../images/email.png); } 
+.junk .inq-actions .status { background-image: url(../images/email_error.png); } 
+.sending .inq-actions .status { background-image: url(../../../images/indicator.white.gif) !important; } 
+.read .inq-actions .status { background-image: url(../images/email_open.png); } 
+.replied .inq-actions .status { top: 4px; background-image: url(../images/email_go.png); } 
+
+.inq-actions .flag-toggle { 
+  display: inline-block; 
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 16px; 
+  width: 16px; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  background-image: url(../images/star_faded.png);
+}
+.flagged .inq-actions .flag-toggle { 
+  background-image: url(../images/star.png);
+}
+.flagging .inq-actions .flag-toggle { 
+  background-image: url(../../../images/indicator.white.gif) !important;
+}
+
+td.from {
+  width: 50px;
+  margin: 0;
+}
+td.inquiry {
+  width: 600px;
+}
+
+/* Author Field */
+#author-field .userpic {
+  float: left;
+  margin-right: 15px;
+}
+#author-field .userpic img {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#author-field .info {
+  float: left;
+}
+#author-field .info .name {
+  font-size: 2em;
+}
+#author-field .info .email {
+}
+
+/* Subject Field */
+#subject-field {
+  font-size: 1.5em;
+}
+#subject-field .field-header {
+  font-size: .8em;
+  padding-top: 2px;
+}
+#subject-field .field-content {
+}
+
+#text-field .field-content {
+  padding-top: 3px;
+}

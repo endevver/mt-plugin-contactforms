@@ -1,0 +1,263 @@
+<script type="text/javascript">
+<mt:unless name="fields_js">
+  _fields = [
+    { 'label':"Subject",
+      'basename':'subject',
+      'type':"text",
+      'removable':"0",
+      'new':"1",
+      'order':"0",
+      'options':{}
+    },
+    { 'label':"Body",
+      'basename':'body',
+      'type':"textarea",
+      'removable':"0",
+      'new':"1",
+      'order':"0",
+      'options':{
+        'rows':5,
+        'cols':30
+      }
+    },
+  ];
+</mt:unless>
+
+  var page = 1;
+  function setPage(p) {
+    page = p;
+    $('#steps li').removeClass('active');
+    $('.page').hide();
+    $('#page-' + p).show();
+    var step = $('#steps li.page-' + p);
+    step.addClass('active');
+    var next = step.next(':visible');
+    if (next.html()) {
+        $('#create #continue').html('Continue');      
+    } else {
+        $('#create #continue').html('Finish');      
+    }
+  }
+
+  $(document).ready( function() {
+    $('#steps li').click( function() {
+      var p = $(this).find('span').html();
+      if (p != page) {
+        setPage(p);
+      }
+    });
+    $('.actions-bar #continue').click( function() {
+      var s = $('#steps').find('li.active');
+      var next = s.next(':visible');
+      if (next.html() && $(this).html().trim() != 'Save') {
+        setPage( parseInt(page) + 1 );
+      } else {
+        $('#contactform input[name="fields"]').val( $.toJSON(_fields) );
+        $('#contactform').ajaxSubmit({
+          type: 'post',
+          success: function() {
+            alert("Success!");
+            closeDialog();          
+          }
+        });
+      }
+    });
+    $('.actions-bar #back').click( function() {
+      var s = $('#steps').find('li.active');
+      var prev = s.prev(':visible');
+      if (prev.html()) {
+        setPage( page - 1 );
+      }
+    });
+  });
+</script>
+
+<ol id="steps" class="pkg">
+  <li class="page-1 general active"><span>1</span> <label>General</label></li>
+  <li class="page-2 confirm"><span>2</span> <label>Confirmation Text</label></li>
+  <li class="page-3 auto-response"><span>3</span> <label>Auto-Response</label></li>
+  <li class="page-4 fields"><span>4</span> <label>Form Designer</label></li>
+</ol>
+
+<form id="contactform" method="post" action="<mt:var name="script_url">">
+  <input type="hidden" name="__mode" value="cf.save_form" />
+  <input type="hidden" name="blog_id" value="<mt:var name="blog_id">" />
+  <input type="hidden" name="magic_token" value="<mt:var name="magic_token">" />
+<mt:if name="form_id">
+  <input type="hidden" name="id" value="<mt:var name="form_id">" />
+</mt:if>
+  <input type="hidden" name="fields" value="" />
+  <input type="hidden" name="remove_fields" value="" />
+
+  <fieldset id="page-1" class="general page first">
+    <mtapp:setting
+      id="form_title"
+      label="Contact Form Name"
+      label_class="top-label"
+      show_label="1"
+      hint="This the title that will be displayed above your form."
+      show_hint="0"
+      content_class="field-content-text">
+        <input class="full-width" type="text" name="title" size="30" value="<mt:var name="title">" />
+    </mtapp:setting>
+
+    <mtapp:setting
+      id="subscribers"
+      label="Notification List"
+      label_class="top-label"
+      show_label="1"
+      hint="The group of people to be notified of new replies. Please separate email addresses by commas."
+      show_hint="1"
+      content_class="field-content">
+        <textarea class="full-width" name="subscribers" rows="3" cols="100"><mt:var name="subscribers"></textarea>
+    </mtapp:setting>
+
+<h3>Preferences</h3>
+
+<mt:if name="form_id">
+    <mtapp:setting
+      id="form_status"
+      label="Status"
+      label_class="top-label"
+      show_label="1"
+      content_class="field-content-text">
+        <select name="form_status">
+          <option value="1"<mt:if name="form_status" eq="1"> selected</mt:if>>Permit new inquiries to be submitted</option>
+          <option value="2"<mt:if name="form_status" eq="2"> selected</mt:if>>Do not permit new inquires</option>
+        </select>
+    </mtapp:setting>
+<mt:else>
+      <input type="hidden" name="form_status" value="1" />
+</mt:if>
+
+    <mtapp:setting
+      id="allow_anon"
+      label="Authentication"
+      show_label="1"
+      label_class="top-label"
+      content_class="field-content-input">
+        <label><input id="allow_anon" type="checkbox" name="allow_anon" value="1" <mt:if name="allow_anon" eq="1">checked </mt:if>/> Require visitors to login before submitting an inquiry.</label>
+    </mtapp:setting>
+
+  </fieldset>
+
+  <fieldset id="page-2" class="confirmation page">
+
+    <mtapp:setting
+      id="confirmation_text"
+      label="Confirmation Text"
+      show_label="1"
+      label_class="top-label"
+      hint="The text of the message that will be displayed to the user after submitting the contact form."
+      show_hint="1"
+      content_class="field-content-text">
+        <textarea class="full-width" name="confirmation_text" rows="5" cols="100"><mt:var name="confirmation_text"></textarea>
+    </mtapp:setting>
+
+  </fieldset>
+
+  <fieldset id="page-3" class="auto-response page">
+
+    <mtapp:setting
+      id="send_autoreply"
+      label="Send Auto-Reply?"
+      show_label="0"
+      class="field-no-header"
+      content_class="field-content-input">
+        <label><input id="send_autoreply" type="checkbox" onclick="return toggleSendAutoReply();" name="send_autoreply" value="1" <mt:if name="send_autoreply" eq="1">checked </mt:if>/> Send Auto-reply for each inquiry?</label>
+    </mtapp:setting>
+
+    <div id="autoreply"<mt:if name="send_autoreply"> style="display:block;"</mt:if>>
+
+      <mtapp:setting
+        id="form_from"
+        label="Send E-mails From"
+        show_label="1"
+        hint="Who emails relating to this form will appear to be from. Should be in the form of 'Name &lt;email&gt;'."
+        show_hint="1"
+        content_class="field-content-text">
+          <input type="text" name="from" size="30" value="<mt:var name="from">" />
+      </mtapp:setting>
+
+      <mtapp:setting
+        id="reply_to"
+        label="E-mail Reply To"
+        show_label="1"
+        hint="To whom replies will be directed. Should be in the form of 'Name &lt;email&gt;'."
+        show_hint="1"
+        content_class="field-content-text">
+          <input type="text" name="reply_to" size="30" value="<mt:var name="reply_to">" />
+      </mtapp:setting>
+
+      <mtapp:setting
+        id="autoreply_subject"
+        label="Auto-reply Subject"
+        show_label="1"
+        label_class="top-label"
+        hint="The subject of the email that will be sent to users who submit the contact form."
+        show_hint="0"
+        content_class="field-content">
+          <input type="text" name="autoreply_subject" size="30" value="<mt:var name="autoreply_subject">" />
+      </mtapp:setting>
+
+      <mtapp:setting
+        id="autoreply_text"
+        label="Auto-reply Text"
+        show_label="1"
+        label_class="top-label"
+        hint="The text of the email to be sent. The body of the email will begin with the text: Dear &lt;So-and-so&gt;:"
+        show_hint="1"
+        content_class="field-content">
+          <textarea name="autoreply_text" rows="5" cols="100"><mt:var name="autoreply_text"></textarea>
+      </mtapp:setting>
+    </div>
+
+  </fieldset>
+
+  <fieldset id="page-4" class="fields page last">
+    <mtapp:setting
+      id="form_fields"
+      label="Form Fields"
+      label_class="top-label"
+      show_label="1"
+      content_class="field-content-text">
+        <div id="field-list">
+          <p id="add-field-link"><a href="javascript:void(0)" title="Add Field">Add Field</a></p>
+          <ol id="field-list-container">
+          </ol>
+          <p class="hint">Drag and drop to reorder fields</p>
+        </div>
+    </mtapp:setting>
+
+  </fieldset>
+
+  <div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+        <button
+             id="continue"
+             onclick="javascript:void(0)"
+             type="button"
+             accesskey="s"
+             title="<__trans phrase="Continue (c)">"
+             class="primary-button">
+          <mt:if name="form_id"><__trans phrase="Save"><mt:else><__trans phrase="Continue"></mt:if></button>
+<mt:unless name="form_id">
+        <button
+             id="back"
+             onclick="javascript:void(0)"
+             type="button"
+             class="back"
+             title="<__trans phrase="Back">">
+          <__trans phrase="Back"></button>
+</mt:unless>
+        <button
+             id="close"
+             onclick="closeDialog(); return false"
+             type="button"
+             accesskey="x"
+             class="cancel close"
+             title="<__trans phrase="Close (x)">">
+          <__trans phrase="Cancel"></button>
+    </div>
+  </div>
+</form>

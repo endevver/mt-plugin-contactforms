@@ -1,0 +1,72 @@
+<mt:IfContactFormOpen>
+<script type="text/javascript" src="<mt:StaticWebPath>plugins/ContactForms/js/blog.js"></script>
+<div id="contactform">
+  <div id="comment-greeting"></div>
+  <form method="post" action="<mt:CGIPath><mt:AdminScript>" id="contact-form" name="contact_form">
+    <input type="hidden" name="__mode" value="cf.submit_reply" />
+    <input type="hidden" name="blog_id" value="<mt:BlogID>" />
+    <input type="hidden" name="form_id" value="<mt:ContactFormID>" />
+    <fieldset id="from">
+      <div id="field-from-name">  
+        <label for="name">Name</label>  
+        <input id="name" name="name" size="30" value="" />  
+      </div> 
+      <div id="field-from-email">  
+        <label for="email">Email</label>  
+        <input id="email" name="email" size="30" value="" />  
+      </div> 
+    </fieldset>
+    <fieldset id="fields">
+<mt:ContactFormFields>
+<mt:if tag="ContactFormFieldType" eq="text">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <label for="<mt:ContactFormFieldBasename>"><mt:ContactFormFieldLabel></label>
+      <input id="<mt:ContactFormFieldBasename>" name="<mt:ContactFormFieldBasename>" size="30" value="" />
+    </div>
+<mt:else tag="ContactFormFieldType" eq="yesno">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <label for="<mt:ContactFormFieldBasename>"><mt:ContactFormFieldLabel></label>
+      <label><input type="radio" name="<mt:ContactFormFieldBasename>" value="yes" /> Yes</label>
+      <label><input type="radio" name="<mt:ContactFormFieldBasename>" value="no" /> No</label>
+    </div>
+<mt:else tag="ContactFormFieldType" eq="textarea">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <label for="<mt:ContactFormFieldBasename>"><mt:ContactFormFieldLabel></label>
+      <textarea id="<mt:ContactFormFieldBasename>" name="<mt:ContactFormFieldBasename>" rows="15" cols="50"></textarea>
+    </div>
+<mt:else tag="ContactFormFieldType" eq="checkbox">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <input type="hidden" name="<mt:ContactFormFieldBasename>_beacon" value="0" />
+      <input type="checkbox" id="<mt:ContactFormFieldBasename>" name="<mt:ContactFormFieldBasename>" value="1" />
+      <label for="<mt:ContactFormFieldBasename>"><mt:ContactFormFieldLabel></label>
+    </div>
+<mt:else tag="ContactFormFieldType" eq="select">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <label for="<mt:ContactFormFieldBasename>"><mt:ContactFormFieldLabel></label>
+      <select id="<mt:ContactFormFieldBasename>" name="<mt:ContactFormFieldBasename>">
+<mt:ContactFormFieldValueLoop>
+        <option><mt:ContactFormFieldValue></option>
+</mt:ContactFormFieldValueLoop>
+      </select>
+    </div>
+<mt:else tag="ContactFormFieldType" eq="radio">
+    <div id="field-<mt:ContactFormFieldBasename>">
+      <label><mt:ContactFormFieldLabel></label>
+<mt:ContactFormFieldValueLoop>
+      <label><input type="radio" name="<mt:ContactFormFieldBasename>" value="<mt:ContactFormFieldValue dirify="1">" /> <mt:ContactFormFieldValue></label>
+</mt:ContactFormFieldValueLoop>
+</mt:if>
+    </fieldset>
+</mt:ContactFormFields>
+    <div id="comments-open-captcha"></div>
+    <div id="contactform-footer">
+      <input type="submit" accesskey="s" name="post" id="contactform-submit" value="Submit" />
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+cfContactFormOnLoad();
+</script>
+<mt:else>
+Out apologies, but this contact form is no longer active or available.
+</mt:IfContactFormOpen>

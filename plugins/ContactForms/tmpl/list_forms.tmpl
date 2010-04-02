@@ -1,0 +1,103 @@
+<mt:setvar name="page_title" value="Contact Forms">
+<mt:setvar name="screen_class" value="contact_form_listing">
+
+<mt:setvarblock name="html_head" append="1">
+  <link rel="stylesheet" href="<$mt:StaticWebPath$>plugins/ContactForms/css/app.css" type="text/css" />
+  <script type="text/javascript">
+    var tableSelect;
+    function init() {
+        tableSelect = new TC.TableSelect("contact_form-listing-table");
+        tableSelect.rowSelect = true;
+    }
+    TC.attachLoadEvent(init);
+  </script>
+  <script type="text/javascript" src="<$mt:StaticWebPath$>plugins/ContactForms/js/jquery.js"></script>
+</mt:setvarblock>
+
+
+<mt:setvarblock name="system_msg">
+    <mt:if name="form_deleted">
+        <mtapp:statusmsg
+            id="form_deleted"
+            class="success">The contact form was deleted.
+        </mtapp:statusmsg>
+    </mt:if>
+    <mt:if name="form_created">
+        <mtapp:statusmsg
+            id="form_created"
+            class="success">The contact form was created.
+        </mtapp:statusmsg>
+    </mt:if>
+</mt:setvarblock>
+
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="quickfilters"
+        label="<__trans phrase="Quickfilters">">
+        <$mtapp:ListFilters$>
+    </mtapp:widget>
+    <$mtapp:PageActions from="$mode"$>
+</mt:setvarblock>
+
+<mt:setvarblock name="action_buttons">
+  <a href="javascript:void(0)"
+     onclick="doForMarkedInThisWindow(
+                 getByID('contact_form-listing-form'),
+                 'contact form', 'contact forms', 'id', 'cf.del_form'); 
+                 return false;"
+     accesskey="h"
+     title="Delete selected forms (d)">Delete</a>
+</mt:setvarblock>
+
+<mt:setvarblock name="html_body_footer">
+   <mt:include name="include/display_options.tmpl">
+</mt:setvarblock>
+
+<mt:setvarblock name="content_header">
+<p class="create-link"><a href="javascript:void(0)" onclick="openDialog(null,'cf.create_form','id=<mt:var name="id">&blog_id=<mt:var name="blog_id">'); return false;" class="icon-left icon-create"><__trans phrase="Create Contact Form"></a></p>
+</mt:setvarblock>
+
+<mt:include name="include/header.tmpl">
+
+<mt:setvarblock name="listing_header">
+</mt:setvarblock>
+
+<mt:setvarblock name="list_filter_form">
+<div class="listing-filter">
+  <div class="listing-filter-inner inner pkg"></div>
+</div>
+</mt:setvarblock>
+
+<mtapp:listing type="contact_form" 
+    default="No contact forms could be found." 
+    empty_message="No contact forms could be found.">
+    <mt:if name="__first__">
+      <thead>
+        <tr>
+          <th class="cb"><input type="checkbox" id="select-all-checkbox"  
+            name="id-head" value="all" class="select" /></th>
+          <th>ID</th>
+          <th>Form Title</th>
+          <th>Subscribers</th>
+          <th>Inquiries</th>
+          <th>Created On</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    </mt:if>
+    <tr class="<mt:if name="__odd__">odd<mt:else>even</mt:if>">
+      <td class="cb">
+        <input type="checkbox" name="id" 
+           value="<mt:var name="id">" class="select" />
+      </td>
+      <td><mt:var name="id" remove_html="1"></td>
+      <td><a href="javascript:void(0)" onclick="openDialog(null,'cf.edit_form','id=<mt:var name="id">&blog_id=<mt:var name="blog_id">');return false;"><mt:var name="title" remove_html="1"></a></td>
+      <td><mt:var name="subscribers" remove_html="1"></td>
+      <td><mt:if name="inquiries" gt="0"><a href="<mt:AdminScript>?__mode=cf.list_inquiries&form_id=<mt:var name="id">&blog_id=<mt:var name="blog_id">"><mt:var name="inquiries" remove_html="1"></a><mt:else>0</mt:if></td>
+      <td><mt:var name="date" remove_html="1"></td>
+      <td><a href="javascript:void(0)" onclick="openDialog(null,'cf.show_form','id=<mt:var name="id">&blog_id=<mt:var name="blog_id">');return false;">Show HTML</a></td>
+    </tr>
+</mtapp:listing>
+
+<mt:include name="include/footer.tmpl">

@@ -1,0 +1,170 @@
+<mt:setvarblock name="page_title"><__trans phrase="Edit Inquiry"></mt:setvarblock>
+<$mt:setvar name="position_actions_bottom" value="1"$>
+<mt:setvarblock name="system_msg">
+    <mt:if name="saved">
+        <mtapp:statusmsg
+            id="saved"
+            class="success">
+            <__trans phrase="Your changes have been saved.">
+        </mtapp:statusmsg>
+    </mt:if>
+</mt:setvarblock>
+
+<mt:setvarblock name="PluginStatic"><mt:StaticWebPath>plugins/ContactForms/</mt:setvarblock>
+<mt:setvarblock name="html_head" append="1">
+  <link rel="stylesheet" href="<mt:var name="PluginStatic">css/app.css" type="text/css" />
+  <link rel="stylesheet" href="<mt:var name="PluginStatic">css/mt.dialog.css" type="text/css">
+  <link rel="stylesheet" href="<mt:var name="PluginStatic">css/ui.core.css" type="text/css">
+  <link rel="stylesheet" href="<mt:var name="PluginStatic">css/ui.dialog.css" type="text/css">
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/jquery.js"></script>
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/ui.core.js"></script>
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/ui.dialog.js"></script>
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/ui.resizable.js"></script>
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/ui.draggable.js"></script>
+  <script type="text/javascript">
+    var blog_id       = <$mt:var name="blog_id"$>;
+    var magic_token   = '<$mt:var name="magic_token"$>';
+    var script_url    = '<mt:AdminCGIPath><mt:AdminScript>';
+    var static_uri    = '<mt:StaticWebPath>';
+    var plugin_static = '<mt:var name="PluginStatic">';
+    $(document).ready( function() {
+      $('a.delete-inquiry').click( function() {
+        var r = confirm("Are you sure you want to delete this inquiry?");
+        if (!r) { return false; }
+        var tr = $(this).parents('.inquiry-wrapper');
+        var id = tr.attr('inquiry_id');
+        var form_id = tr.attr('form_id');
+        var url = script_url + '?__mode=cf.del_inquiry&blog_id='+blog_id+'&magic_token='+magic_token+'&id='+id+'&return_args=<mt:var name="return_args">';
+        window.location.href = url;
+        return false;
+      });
+    });
+  </script>
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/listing.js"></script>
+</mt:setvarblock>
+
+<mt:setvartemplate name="action_buttons">
+    <button
+        type="submit"
+        accesskey="s"
+        title="<__trans phrase="Save changes to this comment (s)">"
+        class="primary-button"
+        ><__trans phrase="Save Changes"></button>
+    <button
+        onclick="doRemoveItems(this.form, '<__trans phrase="comment">', '<__trans phrase="comments">', 'id', {'return_args' : '__mode=list_comments&amp;blog_id=<mt:var name="blog_id">'})"
+        type="submit"
+        accesskey="x"
+        title="<__trans phrase="Delete this comment (x)">"
+        ><__trans phrase="Delete"></button>
+</mt:setvartemplate>
+<mt:setvarblock name="related_content">
+    <mtapp:widget
+        id="useful-links"
+        label="<__trans phrase="Useful links">">
+        <ul>
+            <li><a href="<mt:var name="script_url">?__mode=cf.list_inquiries&amp;blog_id=<mt:var name="blog_id" escape="url">"><__trans phrase="Manage Inquiries"></a></li>
+            <li><mt:if name="entry_permalink"><a href="<mt:var name="entry_permalink">" target="<__trans phrase="_external_link_target">"><__trans phrase="View entry comment was left on"></a></mt:if></li>            
+        <mt:if name="comment_approved">
+            <li><a href="javascript:void(0)" onclick="return openDialog(this.form, 'dialog_post_comment', 'reply_to=<mt:var name="id" escape="url">&amp;magic_token=<mt:var name="magic_token" escape="url">&amp;blog_id=<mt:var name="blog_id" escape="url">&amp;return_args=<mt:var name="return_args" escape="url">')"><__trans phrase="Reply to this comment"></a></li>
+        </mt:if>
+        </ul>
+    </mtapp:widget>
+    <$mtapp:PageActions$>
+</mt:setvarblock>
+<mt:include name="include/header.tmpl">
+
+<form method="post" action="<mt:var name="script_url">">
+  <input type="hidden" name="id" value="<mt:var name="id" escape="html">" />
+  <input type="hidden" name="blog_id" value="<mt:var name="blog_id" escape="html">" />
+  <input type="hidden" name="__mode" value="save_inquiry" />
+  <input type="hidden" name="action_name" value="" />
+  <input type="hidden" name="itemset_action_input" value="" />
+  <input type="hidden" name="_type" value="comment" />
+  <input type="hidden" name="return_args" value="<mt:var name="return_args" escape="html">" />
+  <input type="hidden" name="magic_token" value="<mt:var name="magic_token">" />
+
+<mt:if name="position_actions_top">
+  <mt:include name="include/actions_bar.tmpl" bar_position="top" hide_pager="1">
+</mt:if>
+
+  <div id="inquiry-<mt:var name="id">" class="inquiry-wrapper <mt:if name="status" eq="1">unread<mt:else name="status" eq="2">read<mt:else name="status" eq="3">replied<mt:else name="status" eq="5">junk</mt:if><mt:if name="flagged" eq="1"> flagged</mt:if>" form_id="<mt:var name="form_id">" inquiry_id="<mt:var name="id">">
+    <mtapp:setting
+        id="author"
+        label="<__trans phrase="Author">"
+        show_label="0"
+        content_class="field-content-text"
+        hint="<__trans phrase="The name of the person who posted the inquiry">"
+        show_hint="0">
+
+      <div class="author-info">
+        <div class="userpic">
+          <img width="80" height="80" 
+             src="http://www.gravatar.com/avatar.php?gravatar_id=<mt:var name="from_email" encode_md5="1">&s=80&d=identicon" />
+        </div>
+        <div class="info">
+          <span class="name author"><mt:var name="from"></span><br />
+          <span class="email"><mt:var name="from_email"></span><br />
+          <span class="stats"><a href=""><mt:var name="inquiry_count" singular="# inquiry" plural="# inquiries"></a></span>
+        </div>
+      </div>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="actions"
+        label="Actions"
+        show_label="0"
+        show_hint="0">
+      <div class="inq-actions">
+        <span class="status"></span> | 
+        <a href="javascript:void(0)" class="flag-toggle" title="Toggle Flag"></a> | 
+        <a href="javascript:void(0)" title="Reply">Reply</a> |
+        <a href="javascript:void(0)" class="delete-inquiry">Delete</a> |
+        <span class="date"><mt:var name="date" remove_html="1"></span> on 
+        <a href="<$mt:var name="mt_url">?__mode=cf.list_inquiries&amp;form_id=<mt:var name="form_id">&amp;blog_id=<mt:var name="blog_id">"><mt:var name="form" remove_html="1"></a>
+      </div>
+    </mtapp:setting>
+
+    <mtapp:setting
+        id="subject"
+        label="$subject_label"
+        hint="<__trans phrase="Subject of Inquiry">"
+        show_hint="0">
+      <mt:var name="subject">
+    </mtapp:setting>
+    
+    <mtapp:setting
+        id="text"
+        label="$body_label"
+        hint="<__trans phrase="Fulltext of the inquiry">"
+        content_class="inq-body"
+        show_hint="0">
+      <mt:var name="body" escape="html" filters="__default__">
+    </mtapp:setting>
+
+    <mt:loop name="field_loop">
+      <mtapp:setting
+          id="text"
+          label="$label"
+          show_hint="0">
+        <mt:var name="value" escape="html" filters="__default__">
+      </mtapp:setting>
+    </mt:loop>
+
+  </div>
+
+<mt:if name="position_actions_bottom">
+  <mt:include name="include/actions_bar.tmpl" bar_position="bottom" hide_pager="1">
+</mt:if>
+
+</form>
+
+<mt:ignore>
+                                <mt:if name="object_loop">
+                                <h2><__trans phrase="Responses to this comment"></h2>
+                                <mt:include name="include/comment_table.tmpl">
+                                </mt:if>
+</mt:ignore>
+
+<mt:include name="reply_dialog.tmpl">
+
+<mt:include name="include/footer.tmpl">

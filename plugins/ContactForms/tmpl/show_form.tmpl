@@ -1,0 +1,43 @@
+<mt:setvar name="page_title" value="Show Contact Form HTML">
+<mt:setvarblock name="PluginStatic"><mt:StaticWebPath>plugins/ContactForms/</mt:setvarblock>
+
+<mt:setvarblock name="html_head" append="1">
+  <link rel="stylesheet" href="<mt:var name="PluginStatic">css/app.css" type="text/css" />
+  <script type="text/javascript" src="<mt:var name="PluginStatic">js/jquery.js"></script>
+  <script type="text/javascript">
+  function showSource() {
+    $('#source').show();
+    $('#code').hide();
+  }
+  function showCode() {
+    $('#source').hide();
+    $('#code').show();
+  }
+  </script>
+  <style>
+  #code { display: none; }
+  </style>
+</mt:setvarblock>
+
+<mt:include name="dialog/header.tmpl">
+
+<div id="view_types">
+<label><input type="radio" name="view_type" onclick="showSource();" checked> Show HTML source</label>
+<label><input type="radio" name="view_type" onclick="showCode();"> Show Template Code</label>
+</div>
+
+<div id="form_html"><div id="source"><textarea onfocus="this.select();"><mt:var name="form_html" encode_html="1"></textarea></div><div id="code"><textarea onfocus="this.select();">&lt;mt:ContactFormHTML id="<mt:var name="form_id">"&gt;</textarea></div></div>
+
+  <div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+      <button
+         onclick="closeDialog(); return false"
+         type="button"
+         class="cancel primary-button"
+         accesskey="x"
+         title="Close (x)">Close</button>
+    </div>
+  </div>
+
+
+<mt:include name="dialog/footer.tmpl">
