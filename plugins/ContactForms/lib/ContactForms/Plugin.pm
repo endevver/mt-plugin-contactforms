@@ -1,6 +1,7 @@
 package ContactForms::Plugin;
 
 use strict;
+use JSON;
 use MT::Util
   qw(format_ts relative_date dirify ts2iso is_valid_email html_text_transform);
 
@@ -197,7 +198,6 @@ sub edit_form {
     my $app    = shift;
     my $q      = $app->{query};
     my $plugin = MT->component('ContactForms');
-    require JSON;
     my $form           = MT->model('contact_form')->load( $q->param('id') );
     my $tmpl           = $plugin->load_tmpl('edit_form.tmpl');
     my $options_struct = _load_options();
@@ -215,8 +215,8 @@ sub edit_form {
         autoreply_subject => $form->autoreply_subject,
         autoreply_text    => $form->autoreply_text,
         confirmation_text => $form->confirmation_text,
-        options_js        => JSON::to_json($options_struct),
-        fields_js         => JSON::to_json($fields_struct),
+        options_js        => to_json($options_struct),
+        fields_js         => to_json($fields_struct),
     };
     return $app->build_page( $tmpl, $param );
 }
@@ -225,7 +225,6 @@ sub save_form {
     my $app    = shift;
     my $q      = $app->{query};
     my $plugin = MT->component('ContactForms');
-    require JSON;
     my $form;
     my $new = 0;
     my $id = $q->param('id') || 0;
@@ -247,7 +246,7 @@ sub save_form {
     $form->save
       or return _send_json_response( $app, { error => $form->errstr } );
     my $json = $q->param('fields');
-    my $fields = JSON::from_json( $json );
+    my $fields = from_json( $json );
 
     foreach my $f (@$fields) {
         my $field;
@@ -280,7 +279,7 @@ sub save_form {
         $field->type( $f->{type} );
         $field->order( $f->{order} );
         $field->removable( $f->{removable} );
-        $field->options( JSON::to_json( $f->{options} ) );
+        $field->options( to_json( $f->{options} ) );
         $field->save
           or return _send_json_response( $app, { error => $field->errstr } );
     }
@@ -373,12 +372,11 @@ sub create_form {
     my $q      = $app->{query};
     my $plugin = MT->component('ContactForms');
     my $step   = $q->param('step');
-    require JSON;
     my $tmpl   = $plugin->load_tmpl('create_form.tmpl');
     my $struct = _load_options();
     my $param  = {
         blog_id    => $app->blog->id,
-        options_js => JSON::to_json($struct),
+        options_js => to_json($struct),
     };
     return $app->build_page( $tmpl, $param );
 }
@@ -747,8 +745,7 @@ EOH
 
 sub _send_json_response {
     my ( $app, $result ) = @_;
-    require JSON;
-    my $json = JSON::to_json($result);
+    my $json = to_json($result);
     $app->send_http_header("");
     $app->print($json);
     return $app->{no_print_body} = 1;
@@ -770,7 +767,7 @@ sub _load_fields {
             type      => $f->type,
             order     => $f->order,
             removable => $f->removable,
-            options   => JSON::from_json( $options ),
+            options   => from_json( $options ),
             id        => $f->id,
             new       => 0,
             removed   => 0,
