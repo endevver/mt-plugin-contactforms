@@ -431,6 +431,7 @@ Done.
 * Track the reply to inquiries as well - will not implement in v1.0
 * Make it easier to select subscribers to contact forms - will not implement in 1.0
 * Replies Feed
+* Introduce `blog_id` and `form_title` attributes for mt:ContactFormHTML
 
 # Support
 

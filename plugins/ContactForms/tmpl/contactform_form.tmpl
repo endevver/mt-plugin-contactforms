@@ -143,8 +143,10 @@
       label="Authentication"
       show_label="1"
       label_class="top-label"
+      hint="If checked, visitors will not be required to register and authenticate with the system before submitting an inquiry"
+      show_hint="1"
       content_class="field-content-input">
-        <label><input id="allow_anon" type="checkbox" name="allow_anon" value="1" <mt:if name="allow_anon" eq="1">checked </mt:if>/> Require visitors to login before submitting an inquiry.</label>
+        <label><input id="allow_anon" type="checkbox" name="allow_anon" value="1" <mt:if name="allow_anon" eq="1">checked </mt:if>/> Allow anonymous submissions.</label>
     </mtapp:setting>
 
   </fieldset>

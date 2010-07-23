@@ -151,11 +151,10 @@ sub cf_post {
     #    if ( $commenter && $remember ) {
     #        $app->_extend_commenter_session( Duration => "+1y" );
     #    }
-    if ( !$blog->allow_unreg_comments ) {
-        if ( !$commenter ) {
-            return $app->SUPER::handle_error(
-                $app->translate("Registration is required.") );
-        }
+
+    if ( ! $commenter && ! $form->allow_anonymous ) {
+        return $app->SUPER::handle_error(
+            $app->translate("Registration is required.") );
     }
     if (    #$blog->require_comment_emails() &&
         !$commenter && !(
