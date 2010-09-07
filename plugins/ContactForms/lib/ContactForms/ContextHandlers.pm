@@ -63,8 +63,12 @@ sub tag_contact_form {
     my $id = $args->{id};
     my $title = $args->{title};
     
-    my $form = MT->model('contact_form')->load($id);
-    $form = MT->model('contact_form')->load( { title => $title, blog_id => $ctx->stash('blog')->id }) if !$form;
+    my $form;
+    if ($id) {
+        $form = MT->model('contact_form')->load($id);
+    } elsif ($title) {
+        $form = MT->model('contact_form')->load( { title => $title, blog_id => $ctx->stash('blog')->id }) if !$form;
+    }
     return $ctx->error('No contact form could be located') unless $form;
     local $ctx->{__stash}->{'contactform'} = $form;
     defined( my $out .= $ctx->slurp( $args, $cond ) ) or return;
