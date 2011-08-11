@@ -65,11 +65,13 @@ sub cf_post {
 
     return $app->error( 'Could not load form with ID of ' . $id ) unless $form;
 
-    my $iter = MT->model('ipbanlist')->load_iter( { blog_id => $form->blog_id } );
-    while ( my $ban = $iter->() ) {
-        my $banned_ip = $ban->ip;
-        if ( $app->remote_ip =~ /$banned_ip/ ) {
-            return $app->handle_error( $app->translate("Invalid request") );
+    if ( my $banlist = MT->model('ipbanlist') ) {
+        my $iter = $banlist->load_iter( { blog_id => $form->blog_id } );
+        while ( my $ban = $iter->() ) {
+            my $banned_ip = $ban->ip;
+            if ( $app->remote_ip =~ /^$banned_ip/ ) {
+                return $app->handle_error( $app->translate("Invalid request") );
+            }
         }
     }
 
