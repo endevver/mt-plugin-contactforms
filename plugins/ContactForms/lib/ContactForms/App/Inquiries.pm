@@ -522,7 +522,7 @@ sub _send_inquiry_notification {
 
     my %head = (
         id => 'inquiry_notification',
-        To => $inquiry->from_email,
+        To => $subscriber,
         $from_addr ? ( From       => $from_addr ) : (),
         $reply_to  ? ( 'Reply-To' => $reply_to )  : (),
         Subject => $subject,
