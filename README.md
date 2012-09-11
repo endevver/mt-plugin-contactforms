@@ -410,9 +410,9 @@ Done.
 
 # Support
 
+You can file bug reports in Github's [Issues](https://github.com/endevver/mt-plugin-contactforms/issues) tool.
 
-
-# Bugs and Known Issues
+## Bugs and Known Issues
 
 * Contact Forms
   * drag and drop reordering broken
@@ -432,13 +432,6 @@ Done.
 * Make it easier to select subscribers to contact forms - will not implement in 1.0
 * Replies Feed
 * Introduce `blog_id` and `form_title` attributes for mt:ContactFormHTML
-
-# Support
-
-Endevver does its best to support all of its open source software. For help
-please visit our dedicated support site:
-
-http://endevver.tenderapp.com/
 
 # About Endevver
 
